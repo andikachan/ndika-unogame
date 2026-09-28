@@ -74,23 +74,20 @@ jobs:
       - name: 1. Checkout Code
         uses: actions/checkout@v4
 
-      - name: 2. Setup Java 17 (Temurin for Android Gradle Plugin)
+      - name: 2. Setup Java 17 (Temurin)
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '17'
           cache: 'gradle'
 
-      - name: 3. Setup Android SDK
-        uses: android-actions/setup-android@v3
-
-      - name: 4. Setup Gradle
+      - name: 3. Setup Gradle
         uses: gradle/actions/setup-gradle@v4
 
-      - name: 5. Build Android Debug APK
+      - name: 4. Build Android Debug APK
         run: gradle :android-app:assembleDebug --stacktrace
 
-      - name: 6. Upload Android APK Artifact
+      - name: 5. Upload Android APK Artifact
         uses: actions/upload-artifact@v4
         with:
           name: uno-multiplayer-client-apk
