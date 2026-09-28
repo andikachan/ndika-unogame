@@ -1,4 +1,4 @@
-name: Build & Test Enterprise UNO Engine
+name: Build & Test Enterprise UNO Engine & Android APK
 
 on:
   push:
@@ -13,8 +13,8 @@ permissions:
   pull-requests: write
 
 jobs:
-  build-and-test:
-    name: Gradle Build, Static Analysis & Tests
+  backend-build-test:
+    name: 1. Backend Engine (Build, Test, BootJar)
     runs-on: ubuntu-latest
 
     services:
@@ -29,7 +29,7 @@ jobs:
           --health-retries 5
 
     steps:
-      - name: 1. Checkout Code with Git LFS
+      - name: 1. Checkout Code
         uses: actions/checkout@v4
         with:
           lfs: true
@@ -45,23 +45,54 @@ jobs:
       - name: 3. Setup Gradle
         uses: gradle/actions/setup-gradle@v4
 
-      - name: 4. Run Unit & Integration Test Suites
+      - name: 4. Run Backend Tests & Integration Suite
         env:
           UPSTASH_REDIS_HOST: localhost
           UPSTASH_REDIS_PORT: 6379
           JWT_SECRET: dGhpc2lzYXZlcnlzZWN1cmVqd3RzZWNyZXRrZXlmb3J1bm9lbmdpbmUyMDI2MTIzNDU2Nzg5MDEyMzQ1Njc4OTA=
         run: gradle test --info
 
-      - name: 5. Run Static Code Analysis (Detekt)
+      - name: 5. Run Static Analysis (Detekt)
         continue-on-error: true
         run: gradle detekt --info
 
-      - name: 6. Assemble Executable Boot JAR
+      - name: 6. Assemble Backend Boot JAR
         run: gradle bootJar -x test
 
-      - name: 7. Upload Build Artifacts
+      - name: 7. Upload Backend JAR Artifact
         uses: actions/upload-artifact@v4
         with:
           name: uno-engine-release-jar
           path: build/libs/*.jar
+          retention-days: 14
+
+  android-apk-build:
+    name: 2. Android Client APK Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 1. Checkout Code
+        uses: actions/checkout@v4
+
+      - name: 2. Setup Java 17 (Temurin for Android Gradle Plugin)
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+          cache: 'gradle'
+
+      - name: 3. Setup Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: 4. Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: 5. Build Android Debug APK
+        run: gradle :android-app:assembleDebug --stacktrace
+
+      - name: 6. Upload Android APK Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: uno-multiplayer-client-apk
+          path: android-app/build/outputs/apk/debug/*.apk
           retention-days: 14

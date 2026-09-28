@@ -1,1 +1,2 @@
-rootProject.name = "uno-engine"
+rootProject.name = "uno-multiplayer"
+include("android-app")

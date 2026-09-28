@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">UNO Multiplayer</string>
+    <string name="lobby_title">UNO Multiplayer Enterprise</string>
+    <string name="enter_player_name">Enter Player Name</string>
+    <string name="enter_room_id">Room ID (e.g. room-101)</string>
+    <string name="server_ws_url">Server URL (e.g. ws://10.0.2.2:8080/ws/game)</string>
+    <string name="select_variant">Select Game Variant</string>
+    <string name="btn_join_room">JOIN ROOM</string>
+    <string name="btn_create_room">CREATE ROOM</string>
+    <string name="btn_draw_card">DRAW CARD</string>
+    <string name="btn_call_uno">CALL UNO!</string>
+    <string name="btn_challenge_uno">CHALLENGE UNO!</string>
+    <string name="btn_discard_all">DISCARD ALL</string>
+    <string name="deck_title">DISCARD PILE</string>
+    <string name="draw_pile_title">DRAW PILE</string>
+    <string name="your_hand_title">YOUR HAND</string>
+    <string name="waiting_players">Waiting for other players to connect...</string>
+</resources>

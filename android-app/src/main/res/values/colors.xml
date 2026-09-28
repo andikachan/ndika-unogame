@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Brand / UI Colors -->
+    <color name="bg_dark">#121824</color>
+    <color name="bg_board">#1A233A</color>
+    <color name="primary">#E51D24</color>
+    <color name="primary_variant">#B7151B</color>
+    <color name="secondary">#FFC700</color>
+    <color name="accent">#0096FF</color>
+    <color name="text_light">#F5F5F5</color>
+    <color name="text_muted">#9E9E9E</color>
+
+    <!-- Classic Uno Colors -->
+    <color name="uno_red">#ED1C24</color>
+    <color name="uno_blue">#0054A6</color>
+    <color name="uno_green">#00A651</color>
+    <color name="uno_yellow">#FFF200</color>
+    <color name="uno_wild">#222222</color>
+
+    <!-- Flip Dark Side Colors -->
+    <color name="uno_dark_orange">#FF6600</color>
+    <color name="uno_dark_pink">#E6007E</color>
+    <color name="uno_dark_teal">#00A896</color>
+    <color name="uno_dark_purple">#662D91</color>
+</resources>

@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_dark">
+
+    <!-- LOBBY VIEW -->
+    <ScrollView
+        android:id="@+id/lobbyLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:visibility="visible">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="24dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="🎮 ENTERPRISE UNO MULTIPLAYER"
+                android:textColor="@color/secondary"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="7 Modular Game Variants &amp; Zero-Trust Anti-Cheat"
+                android:textColor="@color/text_muted"
+                android:textSize="12sp" />
+
+            <LinearLayout
+                android:layout_width="480dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="#1E2838"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <EditText
+                    android:id="@+id/etServerUrl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#2E3C52"
+                    android:hint="Server WS URL (e.g. ws://10.0.2.2:8080/ws/game)"
+                    android:inputType="textUri"
+                    android:padding="10dp"
+                    android:text="ws://10.0.2.2:8080/ws/game"
+                    android:textColor="@color/text_light"
+                    android:textColorHint="@color/text_muted"
+                    android:textSize="12sp" />
+
+                <EditText
+                    android:id="@+id/etPlayerName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="#2E3C52"
+                    android:hint="Player Name (e.g. Player 1)"
+                    android:inputType="textPersonName"
+                    android:padding="10dp"
+                    android:text="Player 1"
+                    android:textColor="@color/text_light"
+                    android:textColorHint="@color/text_muted"
+                    android:textSize="12sp" />
+
+                <EditText
+                    android:id="@+id/etRoomId"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="#2E3C52"
+                    android:hint="Room ID (e.g. room-alpha)"
+                    android:inputType="text"
+                    android:padding="10dp"
+                    android:text="room-alpha"
+                    android:textColor="@color/text_light"
+                    android:textColorHint="@color/text_muted"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Select Variant:"
+                    android:textColor="@color/text_light"
+                    android:textSize="11sp" />
+
+                <Spinner
+                    android:id="@+id/spinnerVariant"
+                    android:layout_width="match_parent"
+                    android:layout_height="38dp"
+                    android:layout_marginTop="4dp"
+                    android:background="#2E3C52" />
+
+                <Button
+                    android:id="@+id/btnConnect"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:backgroundTint="@color/primary"
+                    android:text="🚀 JOIN / CREATE ROOM"
+                    android:textColor="@color/text_light"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- GAME BOARD VIEW -->
+    <RelativeLayout
+        android:id="@+id/gameBoardLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="8dp"
+        android:visibility="gone">
+
+        <!-- Header Info -->
+        <LinearLayout
+            android:id="@+id/headerBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvRoomInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ROOM: room-alpha | CLASSIC"
+                android:textColor="@color/secondary"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvSideInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:text="SIDE: LIGHT"
+                android:textColor="#00E5FF"
+                android:textSize="11sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvPenaltyAccumulated"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:text="PENALTY: +0"
+                android:textColor="@color/primary"
+                android:textSize="11sp"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/tvTurnStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#2E3C52"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="4dp"
+                android:text="AWAITING MOVE"
+                android:textColor="#00FF66"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Opponents Bar -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvOpponents"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/headerBar"
+            android:layout_marginTop="4dp"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+        <!-- Center Arena (Discard Pile & Draw Pile) -->
+        <LinearLayout
+            android:id="@+id/arenaCenter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <!-- Draw Pile -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardDrawPile"
+                android:layout_width="90dp"
+                android:layout_height="130dp"
+                android:layout_marginEnd="16dp"
+                android:clickable="true"
+                android:focusable="true"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="8dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#151515"
+                    android:padding="8dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:gravity="center"
+                        android:text="UNO\nDRAW"
+                        android:textColor="@color/secondary"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Discard Pile (Top Card) -->
+            <include
+                android:id="@+id/viewTopCard"
+                layout="@layout/item_card"
+                android:layout_width="100dp"
+                android:layout_height="145dp" />
+        </LinearLayout>
+
+        <!-- Notification Banner / Game Logs -->
+        <TextView
+            android:id="@+id/tvGameLog"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/bottomHandContainer"
+            android:layout_marginBottom="4dp"
+            android:gravity="center"
+            android:maxLines="1"
+            android:text="Game started! Your turn to play."
+            android:textColor="@color/text_light"
+            android:textSize="11sp" />
+
+        <!-- Bottom Action Controls & Player Hand -->
+        <LinearLayout
+            android:id="@+id/bottomHandContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical">
+
+            <!-- Quick Action Buttons -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnCallUno"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:layout_marginEnd="6dp"
+                    android:backgroundTint="@color/secondary"
+                    android:text="🔥 CALL UNO!"
+                    android:textColor="#000000"
+                    android:textSize="11sp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/btnChallengeUno"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:layout_marginEnd="6dp"
+                    android:backgroundTint="@color/primary"
+                    android:text="⚡ CHALLENGE!"
+                    android:textColor="@color/text_light"
+                    android:textSize="11sp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/btnDiscardAll"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:backgroundTint="#662D91"
+                    android:text="🧹 DISCARD ALL"
+                    android:textColor="@color/text_light"
+                    android:textSize="11sp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <!-- Player's Secret Hand Recycler -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvPlayerHand"
+                android:layout_width="match_parent"
+                android:layout_height="140dp"
+                android:layout_marginTop="4dp"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+        </LinearLayout>
+    </RelativeLayout>
+</FrameLayout>
