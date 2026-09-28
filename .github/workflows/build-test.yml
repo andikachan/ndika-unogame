@@ -1,0 +1,72 @@
+name: Build & Test Enterprise UNO Engine
+
+on:
+  push:
+    branches: [ "main", "master", "develop" ]
+  pull_request:
+    branches: [ "main", "master", "develop" ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  checks: write
+  pull-requests: write
+
+jobs:
+  build-and-test:
+    name: Gradle Build, Static Analysis & Tests
+    runs-on: ubuntu-latest
+
+    services:
+      redis:
+        image: redis:7-alpine
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: 1. Checkout Code with Git LFS
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+          fetch-depth: 0
+
+      - name: 2. Setup Java 21 LTS (Temurin)
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+          cache: 'gradle'
+
+      - name: 3. Validate Gradle Wrapper Integrity
+        uses: gradle/actions/wrapper-validation@v4
+
+      - name: 4. Make Gradle Wrapper Executable
+        run: chmod +x gradlew || true
+
+      - name: 5. Run Static Code Analysis (Detekt)
+        run: |
+          ./gradlew detekt --info || gradle detekt --info
+
+      - name: 6. Run Unit & Integration Test Suites
+        env:
+          UPSTASH_REDIS_HOST: localhost
+          UPSTASH_REDIS_PORT: 6379
+          JWT_SECRET: c3VwZXJzZWNyZXRqd3RrZXlmb3J1bm9lbmdpbmUyMDI2ZXhhbXBsZQ==
+        run: |
+          ./gradlew test --info || gradle test --info
+
+      - name: 7. Assemble Executable Boot JAR
+        run: |
+          ./gradlew bootJar -x test || gradle bootJar -x test
+
+      - name: 8. Upload Build Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: uno-engine-release-jar
+          path: build/libs/*.jar
+          retention-days: 14

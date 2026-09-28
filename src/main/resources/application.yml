@@ -1,0 +1,30 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: uno-engine
+  data:
+    redis:
+      host: ${UPSTASH_REDIS_HOST:localhost}
+      port: ${UPSTASH_REDIS_PORT:6379}
+      password: ${UPSTASH_REDIS_PASSWORD:}
+      ssl:
+        enabled: ${UPSTASH_REDIS_SSL:false}
+      timeout: 2000ms
+
+uno:
+  security:
+    jwt-secret: ${JWT_SECRET:dGhpc2lzYXZlcnlzZWN1cmVqd3RzZWNyZXRrZXlmb3J1bm9lbmdpbmUyMDI2MTIzNDU2Nzg5MDEyMzQ1Njc4OTA=}
+    jwt-expiration-ms: 900000 # 15 minutes
+  rate-limit:
+    capacity: 10
+    refill-rate-per-second: 10
+  turn:
+    default-timeout-seconds: 15
+    uno-penalty-window-seconds: 3
+
+logging:
+  level:
+    root: INFO
+    com.uno.engine: DEBUG

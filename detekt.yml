@@ -1,0 +1,34 @@
+build:
+  maxIssues: 50
+  weights:
+    complexity: 2
+    LongParameterList: 1
+    style: 1
+    comments: 1
+
+complexity:
+  active: true
+  LongMethod:
+    threshold: 120
+  LargeClass:
+    threshold: 600
+  ComplexCondition:
+    threshold: 6
+  CyclomaticComplexMethod:
+    threshold: 25
+
+naming:
+  active: true
+  FunctionNaming:
+    functionPattern: '^[a-z][a-zA-Z0-9]*$'
+  ClassNaming:
+    classPattern: '^[A-Z][a-zA-Z0-9]*$'
+
+style:
+  active: true
+  WildcardImport:
+    active: false
+  MagicNumber:
+    active: false
+  MaxLineLength:
+    maxLineLength: 160
