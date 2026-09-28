@@ -42,29 +42,23 @@ jobs:
           java-version: '21'
           cache: 'gradle'
 
-      - name: 3. Validate Gradle Wrapper Integrity
-        uses: gradle/actions/wrapper-validation@v4
+      - name: 3. Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
 
-      - name: 4. Make Gradle Wrapper Executable
-        run: chmod +x gradlew || true
+      - name: 4. Run Static Code Analysis (Detekt)
+        run: gradle detekt --info
 
-      - name: 5. Run Static Code Analysis (Detekt)
-        run: |
-          ./gradlew detekt --info || gradle detekt --info
-
-      - name: 6. Run Unit & Integration Test Suites
+      - name: 5. Run Unit & Integration Test Suites
         env:
           UPSTASH_REDIS_HOST: localhost
           UPSTASH_REDIS_PORT: 6379
-          JWT_SECRET: c3VwZXJzZWNyZXRqd3RrZXlmb3J1bm9lbmdpbmUyMDI2ZXhhbXBsZQ==
-        run: |
-          ./gradlew test --info || gradle test --info
+          JWT_SECRET: dGhpc2lzYXZlcnlzZWN1cmVqd3RzZWNyZXRrZXlmb3J1bm9lbmdpbmUyMDI2MTIzNDU2Nzg5MDEyMzQ1Njc4OTA=
+        run: gradle test --info
 
-      - name: 7. Assemble Executable Boot JAR
-        run: |
-          ./gradlew bootJar -x test || gradle bootJar -x test
+      - name: 6. Assemble Executable Boot JAR
+        run: gradle bootJar -x test
 
-      - name: 8. Upload Build Artifacts
+      - name: 7. Upload Build Artifacts
         uses: actions/upload-artifact@v4
         with:
           name: uno-engine-release-jar
