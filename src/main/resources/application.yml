@@ -6,6 +6,7 @@ spring:
     name: uno-engine
   data:
     redis:
+      url: ${UPSTASH_REDIS_URL:${REDIS_URL:}}
       host: ${UPSTASH_REDIS_HOST:localhost}
       port: ${UPSTASH_REDIS_PORT:6379}
       password: ${UPSTASH_REDIS_PASSWORD:}
