@@ -33,6 +33,7 @@ class UnoShowdownRuleset : VariantRuleset {
             )) {
                 deck.add(GameCard.simple(color, value, CardType.NUMBER))
                 deck.add(GameCard.simple(color, value, CardType.NUMBER))
+            }
             repeat(2) {
                 deck.add(GameCard.simple(color, CardValue.SKIP, CardType.ACTION))
                 deck.add(GameCard.simple(color, CardValue.REVERSE, CardType.ACTION))
