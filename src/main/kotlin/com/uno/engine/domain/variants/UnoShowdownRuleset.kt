@@ -33,11 +33,12 @@ class UnoShowdownRuleset : VariantRuleset {
             )) {
                 deck.add(GameCard.simple(color, value, CardType.NUMBER))
                 deck.add(GameCard.simple(color, value, CardType.NUMBER))
+            repeat(2) {
+                deck.add(GameCard.simple(color, CardValue.SKIP, CardType.ACTION))
+                deck.add(GameCard.simple(color, CardValue.REVERSE, CardType.ACTION))
+                deck.add(GameCard.simple(color, CardValue.DRAW_TWO, CardType.ACTION, power = 2, drawPenalty = 2))
             }
-            deck.add(GameCard.simple(color, CardValue.SKIP, CardType.ACTION))
-            deck.add(GameCard.simple(color, CardValue.REVERSE, CardType.ACTION))
-            deck.add(GameCard.simple(color, CardValue.DRAW_TWO, CardType.ACTION, power = 2, drawPenalty = 2))
-            // Showdown action cards
+            // Showdown action cards (1 per color)
             deck.add(GameCard.simple(color, CardValue.SHOWDOWN, CardType.ACTION))
         }
 

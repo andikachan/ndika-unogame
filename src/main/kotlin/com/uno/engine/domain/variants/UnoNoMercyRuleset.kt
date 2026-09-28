@@ -30,37 +30,35 @@ class UnoNoMercyRuleset : VariantRuleset {
             // One '0' per color (7-0 passing)
             deck.add(GameCard.simple(color, CardValue.ZERO, CardType.NUMBER))
 
-            // Two of 1-9 per color
+            // Three of 1-9 per color (27 cards per color = 108 cards)
             for (value in listOf(
                 CardValue.ONE, CardValue.TWO, CardValue.THREE, CardValue.FOUR,
                 CardValue.FIVE, CardValue.SIX, CardValue.SEVEN, CardValue.EIGHT, CardValue.NINE
             )) {
-                deck.add(GameCard.simple(color, value, CardType.NUMBER))
-                deck.add(GameCard.simple(color, value, CardType.NUMBER))
+                repeat(3) {
+                    deck.add(GameCard.simple(color, value, CardType.NUMBER))
+                }
             }
 
-            // Actions (2 each per color)
+            // Actions (2 each per color: 10 per color = 40 cards)
             repeat(2) {
                 deck.add(GameCard.simple(color, CardValue.SKIP, CardType.ACTION))
                 deck.add(GameCard.simple(color, CardValue.REVERSE, CardType.ACTION))
                 deck.add(GameCard.simple(color, CardValue.DISCARD_ALL, CardType.ACTION))
                 deck.add(GameCard.simple(color, CardValue.DRAW_TWO, CardType.ACTION, power = 2, drawPenalty = 2))
                 deck.add(GameCard.simple(color, CardValue.DRAW_FOUR, CardType.ACTION, power = 4, drawPenalty = 4))
-                deck.add(GameCard.simple(color, CardValue.DRAW_SIX, CardType.ACTION, power = 6, drawPenalty = 6))
             }
         }
 
-        // Wilds
-        repeat(8) {
-            deck.add(GameCard.simple(CardColor.WILD, CardValue.WILD_STANDARD, CardType.WILD))
-        }
+        // Wilds (16 cards)
         repeat(4) {
+            deck.add(GameCard.simple(CardColor.WILD, CardValue.WILD_STANDARD, CardType.WILD))
             deck.add(GameCard.simple(CardColor.WILD, CardValue.WILD_DRAW_SIX, CardType.WILD, power = 6, drawPenalty = 6))
             deck.add(GameCard.simple(CardColor.WILD, CardValue.DRAW_TEN, CardType.WILD, power = 10, drawPenalty = 10))
             deck.add(GameCard.simple(CardColor.WILD, CardValue.WILD_REVERSE_DRAW_FOUR, CardType.WILD, power = 4, drawPenalty = 4))
         }
 
-        return deck // 168 cards
+        return deck // Exactly 168 cards (4 + 108 + 40 + 16)
     }
 
     override fun isValidMatch(
